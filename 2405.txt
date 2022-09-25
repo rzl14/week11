@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int partitionString(string s) {
+        bool st[26] = {0};
+        int n = 1;
+        for(int i = 0; i < s.size(); i ++) {
+            if (!st[s[i] - 'a']) st[s[i] - 'a'] = true;
+            else {
+                n ++;
+                memset(st, 0, sizeof st);
+                st[s[i] - 'a'] = true;
+            }
+        }
+        return n;
+    }
+};

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool st[8][8];
+    int fx[4] = {0, 0, 1, -1}, fy[4] = {-1, 1, 0, 0};
+    bool find(vector<vector<char>>& board, string& word, int wp, int x, int y) {
+        // cout << wp << "  " << x << "  " << y << endl;
+        if (x < 0 || x >= board.size() || y < 0 || y >= board[0].size()) return false;
+        if (word[wp] != board[x][y] || st[x][y]) return false;
+        if (wp >= word.size() - 1) return true;
+        st[x][y] = true;
+        bool d = find(board, word, wp + 1, x, y + 1) || find(board, word, wp + 1, x, y - 1) || find(board, word, wp + 1, x + 1, y) || find(board, word, wp + 1, x - 1, y);
+        st[x][y] = false;
+        return d;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        for (int i = 0; i < board.size(); i ++) {
+            for (int j = 0; j < board[0].size(); j ++){
+                if (find(board, word, 0, i, j)) return true;
+            }
+        }
+        return false;
+    }
+};

@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int st1[1010], st2[1010];
+    int transportationHub(vector<vector<int>>& path) {
+        int cnt = 0;
+        for (int i = 0; i < path.size(); i ++) {
+            if (!st1[path[i][0]] && !st2[path[i][0]]) cnt ++;
+            st1[path[i][0]] ++;
+            if (!st2[path[i][1]] && !st1[path[i][1]]) cnt ++;
+            st2[path[i][1]] ++;
+        }
+        for (int i = 0; i < 1001; i ++) {
+            if (st1[i] == 0 && st2[i] == cnt - 1) return i;
+        }
+        return -1;
+    }
+};
